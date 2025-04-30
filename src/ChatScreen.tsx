@@ -50,7 +50,7 @@ const ChatScreen = () => {
   const sendMessageToLLM = async (userInput) => {
     setIsThinking(true)
        await axios.post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyA6VY2ki29PVrr1HGqNuRJm84k01py3lHE',
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_Key',
         {
           contents: [
             {
