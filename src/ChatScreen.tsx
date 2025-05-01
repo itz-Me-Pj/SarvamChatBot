@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FlatList, TextInput, View, StyleSheet, Text, TouchableOpacity, Animated } from 'react-native';
 import { ChatMessage } from './ChatMessage';
-import { RESULTS } from 'react-native-permissions';
-import { useCheckSpeechRecPermissions, useRequestSpeechRecPermissions } from './hooks/speechPermissionHook';
 import axios from 'axios';
 
 
@@ -12,12 +10,6 @@ const ChatScreen = () => {
   const [isThinking, setIsThinking] = useState(false);
   const [dots, setDots] = useState('');
   const opacity = new Animated.Value(1);
-  const [userMicPermissionGranted, setUserMicPermissionGranted] =
-    useState(false);
-  const [isListening, setIsListening] = useState(false);
-
-  // let silenceTimer: NodeJS.Timeout | null = null;
-
   const typingInterval = useRef<any>(null);
 
   
@@ -50,7 +42,7 @@ const ChatScreen = () => {
   const sendMessageToLLM = async (userInput) => {
     setIsThinking(true)
        await axios.post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_Key',
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_KEY',
         {
           contents: [
             {
@@ -82,30 +74,6 @@ const ChatScreen = () => {
       
   }
   
-  
-  
-  
-//   function splitMarkdownAndLatex(text: string) {
-//     const latexRegex = /\$\$([\s\S]+?)\$\$|\$([^\$]+)\$/g;
-//     const parts: { type: 'markdown' | 'latex'; content: string }[] = [];
-//     let lastIndex = 0;
-//     let match;
-  
-//     while ((match = latexRegex.exec(text)) !== null) {
-//       if (match.index > lastIndex) {
-//         parts.push({ type: 'markdown', content: text.slice(lastIndex, match.index) });
-//       }
-//       const latex = match[1] || match[2];
-//       parts.push({ type: 'latex', content: latex });
-//       lastIndex = latexRegex.lastIndex;
-//     }
-  
-//     if (lastIndex < text.length) {
-//       parts.push({ type: 'markdown', content: text.slice(lastIndex) });
-//     }
-  
-//     return parts;
-//   }
 
   return (
     <View style={styles.container}>
